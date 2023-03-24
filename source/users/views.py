@@ -1,18 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from .forms import CustomUserCreationForm, CustomUserAuthenticationForm
 
 
-def register(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+class CustomRegisterView(CreateView):
+    model = get_user_model()
+    form_class = CustomUserCreationForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('home')
 
 
 class CustomLoginView(LoginView):
