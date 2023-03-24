@@ -23,10 +23,23 @@ class PublicationAddView(LoginRequiredMixin, CreateView):
         return reverse('publication_detail', kwargs={'pk': self.object.pk})
 
 
-class PublicationDetailView(LoginRequiredMixin, DetailView):
+# class PublicationDetailView(LoginRequiredMixin, DetailView):
+#     model = Publication
+#     template_name = 'publication/publication_detail.html'
+#     context_object_name = 'publication'
+
+
+class PublicationDetailView(DetailView):
     model = Publication
     template_name = 'publication/publication_detail.html'
     context_object_name = 'publication'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        publication = self.object
+        has_liked = self.request.user.is_authenticated and publication.like_set.filter(user=self.request.user).exists()
+        context['has_liked'] = has_liked
+        return context
 
 
 class PublicationListView(LoginRequiredMixin, ListView):

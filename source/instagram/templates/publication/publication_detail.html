@@ -3,5 +3,13 @@
 <h1>{{ publication.description }}</h1>
 <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
 <p>Нравится: {{ publication.likes_count }}</p>
+{% if not has_liked %}
+<form method="post" action="{% url 'like' publication.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Like">
+</form>
+{% else %}
+<p>Вы уже поставили лайк этой публикации.</p>
+{% endif %}
 <p>Комментарии: {{ publication.comments_count }}</p>
 {% endblock %}
