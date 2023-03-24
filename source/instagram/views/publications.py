@@ -46,7 +46,7 @@ class UserSearchView(ListView):
         return queryset
 
 
-class UserDetailView(DetailView):
+class UserProfileView(DetailView):
     model = get_user_model()
-    template_name = 'user_detail.html'
+    template_name = 'user_profile.html'
     context_object_name = 'user'

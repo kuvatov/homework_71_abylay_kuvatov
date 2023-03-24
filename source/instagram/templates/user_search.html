@@ -9,7 +9,7 @@
 <ul>
     {% for user in users %}
     <li>
-        <a href="{% url 'user_detail' user.pk %}">
+        <a href="{% url 'user_profile' user.pk %}">
             {{ user.username }} - {{ user.name }}
         </a>
     </li>
