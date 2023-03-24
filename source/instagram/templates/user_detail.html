@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ user.username }}</h1>
+<img src="{{ user.avatar }}" alt="{{ user.username }}">
+<p>{{ user.name }}</p>
+<p>{{ user.user_information }}</p>
+<h2>Publications:</h2>
+{% for publication in user.publications.all %}
+<div>
+    <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+    <p>{{ publication.description }}</p>
+    <p>Likes: {{ publication.likes.count }}</p>
+    <p>Comments: {{ publication.comments.count }}</p>
+</div>
+{% endfor %}
+{% endblock %}
