@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ publication.description }}</h1>
+<img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+<p>Нравится: {{ publication.likes_count }}</p>
+<p>Комментарии: {{ publication.comments_count }}</p>
+{% endblock %}
