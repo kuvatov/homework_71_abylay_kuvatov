@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'media/favicon.ico' %}">
+    <title>{% block title %}Document{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+<div class="main_content">
+    <div class="container">
+        <div class="content_heading pt-5 pb-3">
+            <h5 class="page_name">{% block content_heading %}{% endblock %}</h5>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+</div>
+<footer class="main_footer">
+    <div class="container">
+        <p>Abylay Kuvatov © 2023</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+</body>
+</html>
