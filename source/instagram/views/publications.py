@@ -23,10 +23,20 @@ class PublicationAddView(LoginRequiredMixin, CreateView):
         return reverse('publication_detail', kwargs={'pk': self.object.pk})
 
 
-class PublicationDetailView(DetailView):
+class PublicationDetailView(LoginRequiredMixin, DetailView):
     model = Publication
     template_name = 'publication/publication_detail.html'
     context_object_name = 'publication'
+
+
+class PublicationListView(LoginRequiredMixin, ListView):
+    model = Publication
+    template_name = 'publication/publication_list.html'
+    context_object_name = 'publications'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Publication.objects.filter(user=self.request.user).order_by('-created_at')
 
 
 class UserSearchView(ListView):
@@ -46,7 +56,7 @@ class UserSearchView(ListView):
         return queryset
 
 
-class UserProfileView(DetailView):
+class UserProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'user_profile.html'
     context_object_name = 'user'

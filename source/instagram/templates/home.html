@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Добро пожаловать на домашнюю страницу, {{ user.username }}!</h1>
+{% if publications %}
+<div class="publications">
+    {% for publication in publications %}
+    <div class="publication">
+        <h2>{{ publication.user.username }}</h2>
+        <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+        <p>{{ publication.description }}</p>
+        <p>{{ publication.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>Вы не подписаны ни на одного пользователя.</p>
+{% endif %}
+{% endblock %}
