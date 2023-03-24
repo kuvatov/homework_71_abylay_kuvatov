@@ -23,13 +23,7 @@ class PublicationAddView(LoginRequiredMixin, CreateView):
         return reverse('publication_detail', kwargs={'pk': self.object.pk})
 
 
-# class PublicationDetailView(LoginRequiredMixin, DetailView):
-#     model = Publication
-#     template_name = 'publication/publication_detail.html'
-#     context_object_name = 'publication'
-
-
-class PublicationDetailView(DetailView):
+class PublicationDetailView(LoginRequiredMixin, DetailView):
     model = Publication
     template_name = 'publication/publication_detail.html'
     context_object_name = 'publication'

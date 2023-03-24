@@ -12,4 +12,20 @@
 <p>Вы уже поставили лайк этой публикации.</p>
 {% endif %}
 <p>Комментарии: {{ publication.comments_count }}</p>
+<hr>
+<h2>Comments:</h2>
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment.text }}</li>
+    {% empty %}
+    <li>No comments yet.</li>
+    {% endfor %}
+</ul>
+<hr>
+<h2>Add a comment:</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Comment</button>
+</form>
 {% endblock %}
