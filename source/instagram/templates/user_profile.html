@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ user.username }}</h1>
+<h1><b>Логин:</b> {{ user.username }}</h1>
 <form method="post" action="{% url 'subscribe' user.pk %}">
     {% csrf_token %}
     <button type="submit">Подписаться</button>
@@ -9,16 +9,22 @@
     {% csrf_token %}
     <button type="submit">Отписаться</button>
 </form>
-<img src="{{ user.avatar }}" alt="{{ user.username }}">
-<p>{{ user.name }}</p>
-<p>{{ user.user_information }}</p>
-<h2>Publications:</h2>
+{% if user.avatar %}
+<img src="{{ user.avatar.url }}" alt="{{ user.username }}">
+{% else %}
+<p>No Avatar!</p>
+{% endif %}
+<b>Имя:</b> <p>{{ user.name }}</p>
+<p><b>Информация:</b> {{ user.user_information }}</p>
+<h2>Публикации:</h2>
 {% for publication in user.publications.all %}
 <div>
-    <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+    <a href="{% url 'publication_detail' publication.pk %}">
+        <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+    </a>
     <p>{{ publication.description }}</p>
-    <p>Likes: {{ publication.likes.count }}</p>
-    <p>Comments: {{ publication.comments.count }}</p>
+    <p>Нравится: {{ publication.likes.count }}</p>
+    <p>Комментарии: {{ publication.comments.count }}</p>
 </div>
 {% endfor %}
 {% endblock %}

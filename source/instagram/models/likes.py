@@ -12,7 +12,8 @@ class Like(models.Model):
     publication = models.ForeignKey(
         to='instagram.Publication',
         on_delete=models.CASCADE,
-        verbose_name='Публикация'
+        verbose_name='Публикация',
+        related_name='likes'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

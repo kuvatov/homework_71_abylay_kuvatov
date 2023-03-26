@@ -6,7 +6,9 @@
     <div class="publication">
         <img src="{{ publication.user.avatar }}" alt="avatar">
         <h2>{{ publication.user.username }}</h2>
-        <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+        <a href="{% url 'publication_detail' publication.pk %}">
+            <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+        </a>
         <p>{{ publication.description }}</p>
         <p>{{ publication.created_at }}</p>
     </div>

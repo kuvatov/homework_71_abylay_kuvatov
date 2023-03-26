@@ -31,7 +31,7 @@ class PublicationDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         publication = self.object
-        has_liked = self.request.user.is_authenticated and publication.like_set.filter(user=self.request.user).exists()
+        has_liked = self.request.user.is_authenticated and publication.likes.filter(user=self.request.user).exists()
         context['has_liked'] = has_liked
         return context
 
