@@ -7,7 +7,8 @@ class Publication(models.Model):
     user = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
-        verbose_name='Пользователь'
+        verbose_name='Пользователь',
+        related_name='publications'
     )
     image = models.ImageField(
         upload_to='publications/',

@@ -15,7 +15,7 @@
 <h2>Publications:</h2>
 {% for publication in user.publications.all %}
 <div>
-    <img src="{{ publication.image }}" alt="{{ publication.description }}">
+    <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
     <p>{{ publication.description }}</p>
     <p>Likes: {{ publication.likes.count }}</p>
     <p>Comments: {{ publication.comments.count }}</p>

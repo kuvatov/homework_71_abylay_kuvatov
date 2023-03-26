@@ -2,7 +2,7 @@
 {% block title %}User Registrations{% endblock %}
 {% block content_heading %}Регистрация пользователя{% endblock %}
 {% block content %}
-<form method="post" novalidate>
+<form method="post" enctype="multipart/form-data" novalidate>
     {% include 'partial/form.html' %}
 </form>
 {% endblock %}
