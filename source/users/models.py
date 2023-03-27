@@ -1,7 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import TextChoices
 
 from users.managers import UserManager
+
+
+class SexChoice(TextChoices):
+    MALE = 'male', 'Мужчина'
+    FEMALE = 'female', 'Женщина'
+    OTHER = 'other', 'Другое'
 
 
 class User(AbstractUser):
@@ -33,6 +40,7 @@ class User(AbstractUser):
     )
     sex = models.CharField(
         max_length=10,
+        choices=SexChoice.choices,
         blank=True,
         null=True,
         verbose_name='Пол'

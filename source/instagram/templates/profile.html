@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card mb-5" style="border: none">
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="avatar" class="rounded-circle border border-light">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-light">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ user.username }}
+                </h5>
+                <a href="#" class="btn btn-light border border-dark ms-3">
+                    Редактировать профиль
+                </a>
+                <p>
+                    {{ user.publications_count }} публикаций {{ user.subscribers_count }} подписчиков Подписки: {{ user.subscriptions_count }}
+                </p>
+                <p>
+                    {{ user.subscribers_count }} подписчиков
+                </p>
+                <p>
+                    Подписки: {{ user.subscriptions_count }}
+                </p>
+                <p>
+                    {{ user.name }}
+                </p>
+                <p class="card-text">
+                    This is a wider card with supporting text below as a natural lead-in to additional content. This
+                    content is a little bit longer.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for publication in user.publications.all %}
+    <div class="col">
+        <div class="card h-100">
+            <a href="#">
+                <img class="card-img-top" src="{{ publication.image.url }}" alt="{{ publication.description }}">
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView
 
 from instagram.forms import CommentForm
@@ -43,7 +43,6 @@ class PublicationListView(LoginRequiredMixin, ListView):
     model = Publication
     template_name = 'publication/publication_list.html'
     context_object_name = 'publications'
-    paginate_by = 10
 
     def get_queryset(self):
         return Publication.objects.filter(user=self.request.user).order_by('-created_at')
@@ -77,3 +76,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         subscription = Subscription.objects.filter(subscriber=self.request.user, subscribed_to=user).first()
         context['subscription'] = subscription
         return context
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "profile.html"
