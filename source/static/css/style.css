@@ -16,7 +16,7 @@ body {
 .main_content {
    padding-bottom: 100px;
 }
-.card-title, .card-counts {
+.card-title, .card-counts, .subscription_button {
    display: inline-block;
 }
 .another_publication_list, .another_publication_list_text {

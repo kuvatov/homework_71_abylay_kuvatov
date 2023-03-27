@@ -3,14 +3,25 @@
 {% if publications %}
 <div class="publications">
     {% for publication in publications %}
-    <div class="publication">
-        <img src="{{ publication.user.avatar }}" alt="avatar">
-        <h2>{{ publication.user.username }}</h2>
-        <a href="{% url 'publication_detail' publication.pk %}">
-            <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
+    <div class="card mb-3 publication">
+        <a href="{% url 'user_profile' publication.user.pk %}">
+            {% if publication.user.avatar %}
+            <img src="{{ publication.user.avatar.url }}" alt="avatar" class="rounded-circle border border-light"
+                 width="50" height="50">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-light"
+                 width="50" height="50">
+            {% endif %}
         </a>
-        <p>{{ publication.description }}</p>
-        <p>{{ publication.created_at }}</p>
+        <p>{{ publication.user.name }}</p>
+        <a href="{% url 'publication_detail' publication.pk %}">
+            <img src="{{ publication.image.url }}" alt="image" class="card-img-top">
+        </a>
+        <div class="card-body">
+            <p class="card-text">
+                <b>{{ publication.user.name }}</b> {{ publication.description }}
+            </p>
+        </div>
     </div>
     {% endfor %}
 </div>

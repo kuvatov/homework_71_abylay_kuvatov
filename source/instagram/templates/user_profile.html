@@ -1,34 +1,66 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-<h1><b>Логин:</b> {{ user.username }}</h1>
-{% if subscription %}
-    <form method="post" action="{% url 'unsubscribe' subscription.pk %}">
-        {% csrf_token %}
-        <button type="submit">Отписаться</button>
-    </form>
-{% else %}
-    <form method="post" action="{% url 'subscribe' user.pk %}">
-        {% csrf_token %}
-        <button type="submit">Подписаться</button>
-    </form>
-{% endif %}
-
-{% if user.avatar %}
-<img src="{{ user.avatar.url }}" alt="{{ user.username }}">
-{% else %}
-<p>No Avatar!</p>
-{% endif %}
-<b>Имя:</b> <p>{{ user.name }}</p>
-<p><b>Информация:</b> {{ user.user_information }}</p>
-<h2>Публикации:</h2>
-{% for publication in user.publications.all %}
-<div>
-    <a href="{% url 'publication_detail' publication.pk %}">
-        <img src="{{ publication.image.url }}" alt="{{ publication.description }}">
-    </a>
-    <p>{{ publication.description }}</p>
-    <p>Нравится: {{ publication.likes.count }}</p>
-    <p>Комментарии: {{ publication.comments.count }}</p>
+<div class="card mb-5" style="border: none">
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="avatar" class="rounded-circle border border-light">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-light">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.username }}</h5>
+                {% if subscription %}
+                <form method="post" action="{% url 'unsubscribe' subscription.pk %}" class="subscription_button">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary border border-dark ms-3 mb-3">Отписаться</button>
+                </form>
+                {% else %}
+                <form method="post" action="{% url 'subscribe' user.pk %}" class="subscription_button">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary border border-dark ms-3 mb-3">Подписаться</button>
+                </form>
+                {% endif %}
+                <br>
+                <p class="card-counts">{{ user.publications_count }} публикаций</p>
+                <p class="card-counts ms-3">{{ user.subscribers_count }} подписчиков</p>
+                <p class="card-counts ms-3">Подписки: {{ user.subscriptions_count }}</p>
+                {% if user.name %}
+                <p>{{ user.name }}</p>
+                {% else %}
+                <p></p>
+                {% endif %}
+                {% if user.user_information %}
+                <p class="card-text">{{ user.user_information }}</p>
+                {% else %}
+                <p class="card-text"></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-{% endfor %}
+{% if user.publications.all.count > 0 %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+    {% for publication in user.publications.all %}
+    <div class="col">
+        <div class="card h-100">
+            <a href="{% url 'publication_detail' publication.pk %}">
+                <img class="card-img-top" src="{{ publication.image.url }}" alt="{{ publication.description }}">
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="another_publication_list mt-5">
+    <a href="{% url 'publication_add' %}">
+        <img src="../../static/media/camera.jpg" alt="avatar" class="rounded-circle border border-light">
+    </a>
+</div>
+<div class="another_publication_list_text mt-3">
+    <h3>Пока нет публикаций</h3>
+</div>
+{% endif %}
 {% endblock %}
