@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1><b>Логин:</b> {{ user.username }}</h1>
-<form method="post" action="{% url 'subscribe' user.pk %}">
-    {% csrf_token %}
-    <button type="submit">Подписаться</button>
-</form>
-<form method="post" action="{% url 'unsubscribe' user.pk %}">
-    {% csrf_token %}
-    <button type="submit">Отписаться</button>
-</form>
+{% if subscription %}
+    <form method="post" action="{% url 'unsubscribe' subscription.pk %}">
+        {% csrf_token %}
+        <button type="submit">Отписаться</button>
+    </form>
+{% else %}
+    <form method="post" action="{% url 'subscribe' user.pk %}">
+        {% csrf_token %}
+        <button type="submit">Подписаться</button>
+    </form>
+{% endif %}
+
 {% if user.avatar %}
 <img src="{{ user.avatar.url }}" alt="{{ user.username }}">
 {% else %}

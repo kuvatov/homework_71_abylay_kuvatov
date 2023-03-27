@@ -32,6 +32,7 @@ class SubscriptionDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         subscription = self.get_object()
         subscribed_to = subscription.subscribed_to
+        subscription.delete()
         subscribed_to.subscribers_count -= 1
         subscribed_to.save()
         self.request.user.subscriptions_count -= 1

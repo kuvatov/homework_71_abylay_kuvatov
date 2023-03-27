@@ -1,11 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView
 
-from instagram.models import Publication
+from instagram.forms import CommentForm
+from instagram.models import Publication, Subscription
 
 
 class PublicationAddView(LoginRequiredMixin, CreateView):
@@ -33,6 +35,7 @@ class PublicationDetailView(LoginRequiredMixin, DetailView):
         publication = self.object
         has_liked = self.request.user.is_authenticated and publication.likes.filter(user=self.request.user).exists()
         context['has_liked'] = has_liked
+        context['form'] = CommentForm(instance=self.object)
         return context
 
 
@@ -67,3 +70,10 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'user_profile.html'
     context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        subscription = Subscription.objects.filter(subscriber=self.request.user, subscribed_to=user).first()
+        context['subscription'] = subscription
+        return context
