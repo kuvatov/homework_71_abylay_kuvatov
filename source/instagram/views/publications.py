@@ -2,12 +2,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from instagram.forms import CommentForm
 from instagram.models import Publication, Subscription
+from users.forms import CustomUserCreationForm
 
 
 class PublicationAddView(LoginRequiredMixin, CreateView):
@@ -80,3 +81,13 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "profile.html"
+
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = CustomUserCreationForm
+    template_name = 'profile_update.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user

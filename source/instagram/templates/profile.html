@@ -11,41 +11,45 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">
-                    {{ user.username }}
-                </h5>
-                <a href="#" class="btn btn-light border border-dark ms-3">
-                    Редактировать профиль
-                </a>
-                <p>
-                    {{ user.publications_count }} публикаций {{ user.subscribers_count }} подписчиков Подписки: {{ user.subscriptions_count }}
-                </p>
-                <p>
-                    {{ user.subscribers_count }} подписчиков
-                </p>
-                <p>
-                    Подписки: {{ user.subscriptions_count }}
-                </p>
-                <p>
-                    {{ user.name }}
-                </p>
-                <p class="card-text">
-                    This is a wider card with supporting text below as a natural lead-in to additional content. This
-                    content is a little bit longer.
-                </p>
+                <h5 class="card-title">{{ user.username }}</h5>
+                <a href="{% url 'profile_update' %}" class="btn btn-light border border-dark ms-3 mb-3">Редактировать профиль</a><br>
+                <p class="card-counts">{{ user.publications_count }} публикаций</p>
+                <p class="card-counts ms-3">{{ user.subscribers_count }} подписчиков</p>
+                <p class="card-counts ms-3">Подписки: {{ user.subscriptions_count }}</p>
+                {% if user.name %}
+                <p>{{ user.name }}</p>
+                {% else %}
+                <p></p>
+                {% endif %}
+                {% if user.user_information %}
+                <p class="card-text">{{ user.user_information }}</p>
+                {% else %}
+                <p class="card-text"></p>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-<div class="row row-cols-1 row-cols-md-4 g-4">
+{% if user.publications.all.count > 0 %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
     {% for publication in user.publications.all %}
     <div class="col">
         <div class="card h-100">
-            <a href="#">
+            <a href="{% url 'publication_detail' publication.pk %}">
                 <img class="card-img-top" src="{{ publication.image.url }}" alt="{{ publication.description }}">
             </a>
         </div>
     </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="another_publication_list mt-5">
+    <a href="{% url 'publication_add' %}">
+        <img src="../../static/media/camera.jpg" alt="avatar" class="rounded-circle border border-light">
+    </a>
+</div>
+<div class="another_publication_list_text mt-3">
+    <h3>Пока нет публикаций</h3>
+</div>
+{% endif %}
 {% endblock %}

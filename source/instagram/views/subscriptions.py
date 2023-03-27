@@ -29,12 +29,11 @@ class SubscriptionDeleteView(LoginRequiredMixin, DeleteView):
     model = Subscription
     success_url = reverse_lazy('home')
 
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         subscription = self.get_object()
         subscribed_to = subscription.subscribed_to
-        subscription.delete()
         subscribed_to.subscribers_count -= 1
         subscribed_to.save()
         self.request.user.subscriptions_count -= 1
         self.request.user.save()
-        return super().delete(request, *args, **kwargs)
+        return super().form_valid(form)

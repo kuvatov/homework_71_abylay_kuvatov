@@ -4,7 +4,7 @@ from instagram.views.comments import CommentCreateView
 from instagram.views.home import HomeView
 from instagram.views.likes import LikeView
 from instagram.views.publications import PublicationAddView, PublicationDetailView, UserSearchView, UserProfileView, \
-    PublicationListView, ProfileView
+    PublicationListView, ProfileView, ProfileUpdateView
 from instagram.views.subscriptions import SubscriptionCreateView, SubscriptionDeleteView
 
 urlpatterns = [
@@ -18,5 +18,6 @@ urlpatterns = [
     path('subscription/<int:pk>/unsubscribe/', SubscriptionDeleteView.as_view(), name='unsubscribe'),
     path('like/<int:pk>/', LikeView.as_view(), name='like'),
     path('publication_detail/<int:pk>/comment/add/', CommentCreateView.as_view(), name='comment_add'),
-    path('profile/', ProfileView.as_view(), name='profile')
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('profile/update', ProfileUpdateView.as_view(), name='profile_update')
 ]

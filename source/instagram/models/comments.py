@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils import timezone
 
 
 class Comment(models.Model):
@@ -27,21 +26,3 @@ class Comment(models.Model):
         auto_now=True,
         verbose_name="Дата и время редактирования"
     )
-    is_deleted = models.BooleanField(
-        verbose_name="Удален",
-        null=False,
-        default=False
-    )
-    deleted_at = models.DateTimeField(
-        verbose_name="Дата и время удаления",
-        null=True,
-        default=None
-    )
-
-    def __str__(self):
-        return f'{self.user} - {self.publication}'
-
-    def delete(self, using=None, keep_parents=False):
-        self.is_deleted = True
-        self.deleted_date = timezone.now()
-        self.save()
