@@ -80,3 +80,6 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     object = UserManager()
+
+    def __str__(self):
+        return self.username

@@ -1,7 +1,6 @@
 from django import forms
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.forms import EmailField
 
 
 class CustomUserCreationForm(UserCreationForm):

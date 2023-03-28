@@ -1,5 +1,5 @@
-from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from instagram.models import Comment, Publication
 
@@ -18,11 +18,3 @@ class CommentCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('publication_detail', args=(self.kwargs['pk'],))
-
-# class CommentListView(ListView):
-#     model = Comment
-#     template_name = 'publication/publication_detail.html'
-#     context_object_name = 'comments'
-#
-#     def get_queryset(self):
-#         return Comment.objects.filter(publication__pk=self.kwargs['pk']).order_by('created_at')

@@ -1,19 +1,15 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
-from django.shortcuts import get_object_or_404
-from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, ListView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse
+from django.views.generic import DetailView
+from django.views.generic.edit import CreateView
 
 from instagram.forms import CommentForm
-from instagram.models import Publication, Subscription
-from users.forms import CustomUserCreationForm
+from instagram.models import Publication
 
 
-class PublicationAddView(LoginRequiredMixin, CreateView):
+class PublicationCreateView(LoginRequiredMixin, CreateView):
     model = Publication
-    template_name = 'publication/publication_add.html'
+    template_name = 'publication/publication_create.html'
     fields = ['image', 'description']
 
     def form_valid(self, form):
@@ -33,61 +29,5 @@ class PublicationDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        publication = self.object
-        has_liked = self.request.user.is_authenticated and publication.likes.filter(user=self.request.user).exists()
-        context['has_liked'] = has_liked
         context['form'] = CommentForm(instance=self.object)
         return context
-
-
-class PublicationListView(LoginRequiredMixin, ListView):
-    model = Publication
-    template_name = 'publication/publication_list.html'
-    context_object_name = 'publications'
-
-    def get_queryset(self):
-        return Publication.objects.filter(user=self.request.user).order_by('-created_at')
-
-
-class UserSearchView(ListView):
-    model = get_user_model()
-    template_name = 'user_search.html'
-    context_object_name = 'users'
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.GET.get('q')
-        if query:
-            queryset = queryset.filter(
-                Q(username__icontains=query) |
-                Q(email__icontains=query) |
-                Q(name__icontains=query)
-            ).distinct()
-        return queryset
-
-
-class UserProfileView(LoginRequiredMixin, DetailView):
-    model = get_user_model()
-    template_name = 'user_profile.html'
-    context_object_name = 'user'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.get_object()
-        subscription = Subscription.objects.filter(subscriber=self.request.user, subscribed_to=user).first()
-        context['subscription'] = subscription
-        return context
-
-
-class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = "profile.html"
-
-
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    model = get_user_model()
-    form_class = CustomUserCreationForm
-    template_name = 'profile_update.html'
-    success_url = reverse_lazy('profile')
-
-    def get_object(self, queryset=None):
-        return self.request.user

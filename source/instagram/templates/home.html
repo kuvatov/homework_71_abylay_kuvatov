@@ -21,12 +21,7 @@
         </a>
         <div class="card-body">
             {% if publication.likes.all %}
-            <form method="post" action="{% url 'unlike' publication.pk %}" class="card_body_form">
-                {% csrf_token %}
-                <button type="submit" class="form_button">
-                    <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
-                </button>
-            </form>
+            <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
             {% else %}
             <form method="post" action="{% url 'like' publication.pk %}" class="card_body_form">
                 {% csrf_token %}
