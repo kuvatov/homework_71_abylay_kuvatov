@@ -52,8 +52,28 @@ textarea {
 }
 .publications_card img {
     height: 300px;
-    object-fit: contain;
+    object-fit: cover;
 }
+.card_body_form {
+    display: inline-block;
+    padding-bottom: 10px;
+}
+.form_button {
+    background-color: white;
+    border: none;
+}
+.form_image {
+    width: 30px;
+    height: 30px;
+}
+.comment_form p {
+    margin-bottom: 0;
+}
+.user_search_name a, .user_search_name a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 
 footer {
     background-color: white;

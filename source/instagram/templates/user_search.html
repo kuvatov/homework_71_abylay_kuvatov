@@ -1,16 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if users %}
-<ul>
-    {% for user in users %}
-    <li>
-        <a href="{% url 'user_profile' user.pk %}">
-            {{ user.username }} - {{ user.name }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+{% for user in users %}
+<div class="d-flex publication_detail_heading user_search_name">
+    <a href="{% url 'user_profile' user.pk %}" class="d-flex">
+        {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="avatar" class="rounded-circle border border-dark"
+             width="50" height="50">
+        {% else %}
+        <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-dark"
+             width="50" height="50">
+        {% endif %}
+        <div class="ps-3">
+            <p class="mb-0"><b>{{ user.username }}</b></p>
+            <p class="mb-0">{{ user.name }}</p>
+        </div>
+    </a>
+</div>
+{% endfor %}
 {% else %}
-<p>No users found.</p>
+<p>Пользователь не найден.</p>
 {% endif %}
 {% endblock %}

@@ -1,28 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{{ publication.description }}</h1>
-<img src="{{ publication.image.url }}" alt="{{ publication.description }}">
-<p>Нравится: {{ publication.likes_count }}</p>
-{% if not has_liked %}
-<form method="post" action="{% url 'like' publication.pk %}">
-    {% csrf_token %}
-    <input type="submit" value="Like">
-</form>
-{% else %}
-<p>Вы уже поставили лайк этой публикации.</p>
-{% endif %}
-<p>Комментарии: {{ publication.comments_count }}</p>
-<hr>
-<h2>Comments:</h2>
-<ul>
-    {% for comment in publication.comments.all %}
-    <li>{{ comment.text }}</li>
-    {% empty %}
-    <li>No comments yet.</li>
-    {% endfor %}
-</ul>
-<form method="post" action="{% url 'comment_add' publication.pk %}">
-    {% csrf_token %}
-    <input class="form-control me-2" type="text" placeholder="Добавьте комментарий...">
-</form>
+<div class="publications">
+    <div class="card mb-5 publication">
+        <div class="d-flex publication_detail_heading">
+            <a href="{% url 'user_profile' publication.user.pk %}">
+                {% if publication.user.avatar %}
+                <img src="{{ publication.user.avatar.url }}" alt="avatar" class="rounded-circle border border-light"
+                     width="50" height="50">
+                {% else %}
+                <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-light"
+                     width="50" height="50">
+                {% endif %}
+            </a>
+            <h6 class="ps-3 publication_detail_heading_username">{{ publication.user.username }}</h6>
+        </div>
+        <a href="{% url 'publication_detail' publication.pk %}" class="border border-light">
+            <img src="{{ publication.image.url }}" alt="image" class="card-img-top">
+        </a>
+        <div class="card-body">
+            {% if publication.likes.all %}
+            <form method="post" action="{% url 'unlike' publication.pk %}" class="card_body_form">
+                {% csrf_token %}
+                <button type="submit" class="form_button">
+                    <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
+                </button>
+            </form>
+            {% else %}
+            <form method="post" action="{% url 'like' publication.pk %}" class="card_body_form">
+                {% csrf_token %}
+                <button type="submit" class="form_button">
+                    <img src="../../static/media/like.jpg" alt="like" class="form_image">
+                </button>
+            </form>
+            {% endif %}
+            <a href="#comment-form-{{ publication.pk }}" class="card_body_form">
+                <img src="../../static/media/comment.jpg" alt="comment" class="form_image">
+            </a>
+            <p><b>{{ publication.likes_count }} отметок "Нравится"</b></p>
+            <p class="card-text">
+                <b>{{ publication.user.name }}</b> {{ publication.description }}
+            </p>
+            <p class="publication_detail_created_at">{{ publication.created_at }}</p>
+        </div>
+        <form method="post" action="{% url 'comment_add' publication.pk %}" class="comment_form"
+              id="comment-form-{{ publication.pk }}">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </form>
+    </div>
+    <h3 class="pb-3">Комментарии:</h3>
+    <div class="publication_comments border border-light p-3">
+        {% for comment in publication.comments.all %}
+        <p><b>{{ user.username }}</b> {{ comment.text }}</p>
+        <p class="publication_detail_created_at">{{ comment.created_at }}</p>
+        {% empty %}
+        <p>Комментарии не добавлены.</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
