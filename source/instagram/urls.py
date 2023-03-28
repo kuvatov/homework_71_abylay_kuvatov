@@ -9,7 +9,7 @@ from instagram.views.subscriptions import SubscriptionCreateView, SubscriptionDe
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('publication_add/', PublicationCreateView.as_view(), name='publication_add'),
+    path('publication_create/', PublicationCreateView.as_view(), name='publication_create'),
     path('publication_detail/<int:pk>', PublicationDetailView.as_view(), name='publication_detail'),
     path('user_search/', ProfileSearchView.as_view(), name='user_search'),
     path('user_profile/<int:pk>', ProfileDetailView.as_view(), name='user_profile'),

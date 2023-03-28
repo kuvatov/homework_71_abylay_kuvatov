@@ -1,0 +1,177 @@
+[
+{
+  "model": "instagram.publication",
+  "pk": 1,
+  "fields": {
+    "user": 3,
+    "image": "publications/tesla.jpg",
+    "description": "Я купила себе новую машину! Урааааа!!!",
+    "likes_count": 1,
+    "comments_count": 0,
+    "created_at": "2023-03-28T12:36:50.534Z",
+    "edited_at": "2023-03-28T12:50:29.122Z",
+    "is_deleted": false,
+    "deleted_at": null
+  }
+},
+{
+  "model": "instagram.publication",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "image": "publications/dress.jpg",
+    "description": "Купила себе новое платье?\r\nПравда красивое?!",
+    "likes_count": 1,
+    "comments_count": 0,
+    "created_at": "2023-03-28T12:41:55.360Z",
+    "edited_at": "2023-03-28T12:49:57.720Z",
+    "is_deleted": false,
+    "deleted_at": null
+  }
+},
+{
+  "model": "instagram.publication",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "image": "publications/wedding.jpg",
+    "description": "Это самый прекрасный день в моей жизни!!!",
+    "likes_count": 1,
+    "comments_count": 0,
+    "created_at": "2023-03-28T12:44:09.148Z",
+    "edited_at": "2023-03-28T12:46:37.872Z",
+    "is_deleted": false,
+    "deleted_at": null
+  }
+},
+{
+  "model": "instagram.publication",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "image": "publications/travelling.jpeg",
+    "description": "Вот так прошел наш медовый месяц",
+    "likes_count": 1,
+    "comments_count": 0,
+    "created_at": "2023-03-28T12:45:01.300Z",
+    "edited_at": "2023-03-28T12:46:03.397Z",
+    "is_deleted": false,
+    "deleted_at": null
+  }
+},
+{
+  "model": "instagram.publication",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "image": "publications/football.jpeg",
+    "description": "Круто поиграли парни!!!",
+    "likes_count": 0,
+    "comments_count": 0,
+    "created_at": "2023-03-28T12:48:22.190Z",
+    "edited_at": "2023-03-28T12:48:22.190Z",
+    "is_deleted": false,
+    "deleted_at": null
+  }
+},
+{
+  "model": "instagram.publication",
+  "pk": 6,
+  "fields": {
+    "user": 5,
+    "image": "publications/pub.jpeg",
+    "description": "Приятный вечер, приятная компания!",
+    "likes_count": 0,
+    "comments_count": 0,
+    "created_at": "2023-03-28T12:49:44.116Z",
+    "edited_at": "2023-03-28T12:49:44.116Z",
+    "is_deleted": false,
+    "deleted_at": null
+  }
+},
+{
+  "model": "instagram.subscription",
+  "pk": 1,
+  "fields": {
+    "subscriber": 2,
+    "subscribed_to": 4
+  }
+},
+{
+  "model": "instagram.subscription",
+  "pk": 2,
+  "fields": {
+    "subscriber": 5,
+    "subscribed_to": 3
+  }
+},
+{
+  "model": "instagram.like",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "publication": 4,
+    "created_at": "2023-03-28T12:45:44.556Z"
+  }
+},
+{
+  "model": "instagram.like",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "publication": 3,
+    "created_at": "2023-03-28T12:46:37.868Z"
+  }
+},
+{
+  "model": "instagram.like",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "publication": 2,
+    "created_at": "2023-03-28T12:49:57.717Z"
+  }
+},
+{
+  "model": "instagram.like",
+  "pk": 4,
+  "fields": {
+    "user": 5,
+    "publication": 1,
+    "created_at": "2023-03-28T12:50:29.120Z"
+  }
+},
+{
+  "model": "instagram.comment",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "publication": 4,
+    "text": "Оооо как круто! Молодцы ребята!",
+    "created_at": "2023-03-28T12:46:03.400Z",
+    "edited_at": "2023-03-28T12:46:03.400Z"
+  }
+},
+{
+  "model": "instagram.comment",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "publication": 3,
+    "text": "Поздравляю тебя Jane! Очень красивая пара!!!",
+    "created_at": "2023-03-28T12:46:35.704Z",
+    "edited_at": "2023-03-28T12:46:35.704Z"
+  }
+},
+{
+  "model": "instagram.comment",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "publication": 1,
+    "text": "Тачка огонь!!!",
+    "created_at": "2023-03-28T12:50:26.488Z",
+    "edited_at": "2023-03-28T12:50:26.488Z"
+  }
+}
+]

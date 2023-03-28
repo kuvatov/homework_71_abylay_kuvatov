@@ -12,12 +12,14 @@
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">{{ user.username }}</h5>
-                <a href="{% url 'profile_update' %}" class="btn btn-light border border-dark ms-3 mb-3">Редактировать профиль</a><br>
+                <a href="{% url 'profile_update' %}" class="btn btn-light border border-dark ms-3 mb-3">Редактировать
+                    профиль</a><br>
                 <p class="card-counts">{{ user.publications_count }} публикаций</p>
                 <p class="card-counts ms-3">{{ user.subscribers_count }} подписчиков</p>
                 <p class="card-counts ms-3">Подписки: {{ user.subscriptions_count }}</p>
                 {% if user.name %}
                 <p>{{ user.name }}</p>
+                <a class="btn btn-outline-primary" aria-current="page" href="{% url 'publication_create' %}">Добавить публикацию</a>
                 {% else %}
                 <p></p>
                 {% endif %}
@@ -45,7 +47,7 @@
 </div>
 {% else %}
 <div class="another_publication_list mt-3">
-    <a href="{% url 'publication_add' %}">
+    <a href="{% url 'publication_create' %}">
         <img src="../../static/media/camera.jpg" alt="avatar" class="rounded-circle border border-light">
     </a>
 </div>
