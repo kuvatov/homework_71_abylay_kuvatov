@@ -4,24 +4,36 @@
 <div class="publications">
     {% for publication in publications %}
     <div class="card mb-3 publication">
-        <a href="{% url 'user_profile' publication.user.pk %}">
-            {% if publication.user.avatar %}
-            <img src="{{ publication.user.avatar.url }}" alt="avatar" class="rounded-circle border border-light"
-                 width="50" height="50">
-            {% else %}
-            <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-light"
-                 width="50" height="50">
-            {% endif %}
-        </a>
-        <p>{{ publication.user.name }}</p>
-        <a href="{% url 'publication_detail' publication.pk %}">
+        <div class="d-flex publication_detail_heading">
+            <a href="{% url 'user_profile' publication.user.pk %}">
+                {% if publication.user.avatar %}
+                <img src="{{ publication.user.avatar.url }}" alt="avatar" class="rounded-circle border border-light"
+                     width="50" height="50">
+                {% else %}
+                <img src="../../static/media/no_image.jpg" alt="avatar" class="rounded-circle border border-light"
+                     width="50" height="50">
+                {% endif %}
+            </a>
+            <h6 class="ps-3 publication_detail_heading_username">{{ publication.user.username }}</h6>
+        </div>
+        <a href="{% url 'publication_detail' publication.pk %}" class="border border-light">
             <img src="{{ publication.image.url }}" alt="image" class="card-img-top">
         </a>
         <div class="card-body">
+            <form method="post" action="{% url 'like' publication.pk %}">
+                {% csrf_token %}
+                <input type="submit" value="Нравится">
+            </form>
+            <p><b>{{ publication.likes_count }} отметок "Нравится"</b></p>
             <p class="card-text">
                 <b>{{ publication.user.name }}</b> {{ publication.description }}
             </p>
+            <p class="publication_detail_created_at">{{ publication.created_at }}</p>
         </div>
+        <form method="post" action="{% url 'comment_add' publication.pk %}">
+            {% csrf_token %}
+            <input class="form-control me-2 p-3" type="text" placeholder="Добавьте комментарий...">
+        </form>
     </div>
     {% endfor %}
 </div>

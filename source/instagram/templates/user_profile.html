@@ -41,11 +41,12 @@
         </div>
     </div>
 </div>
+<hr>
 {% if user.publications.all.count > 0 %}
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
     {% for publication in user.publications.all %}
     <div class="col">
-        <div class="card h-100">
+        <div class="card h-100 publications_card">
             <a href="{% url 'publication_detail' publication.pk %}">
                 <img class="card-img-top" src="{{ publication.image.url }}" alt="{{ publication.description }}">
             </a>
@@ -54,7 +55,7 @@
     {% endfor %}
 </div>
 {% else %}
-<div class="another_publication_list mt-5">
+<div class="another_publication_list mt-3">
     <a href="{% url 'publication_add' %}">
         <img src="../../static/media/camera.jpg" alt="avatar" class="rounded-circle border border-light">
     </a>

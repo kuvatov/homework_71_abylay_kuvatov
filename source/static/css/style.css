@@ -14,7 +14,7 @@ body {
   height: 250px;
 }
 .main_content {
-   padding-bottom: 100px;
+   padding: 0 150px 100px 150px;
 }
 .card-title, .card-counts, .subscription_button {
    display: inline-block;
@@ -36,6 +36,23 @@ textarea {
 }
 .page_action .btn {
     width: 200px;
+}
+.publications {
+    padding: 0 50px;
+}
+.publication_detail_heading {
+    padding: 10px;
+}
+.publication_detail_heading_username {
+    display: flex;
+    align-items: center;
+}
+.publication_detail_created_at {
+    color: silver;
+}
+.publications_card img {
+    height: 300px;
+    object-fit: contain;
 }
 
 footer {

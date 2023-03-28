@@ -21,11 +21,8 @@
     <li>No comments yet.</li>
     {% endfor %}
 </ul>
-<hr>
-<h2>Add a comment:</h2>
 <form method="post" action="{% url 'comment_add' publication.pk %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add comment</button>
+    <input class="form-control me-2" type="text" placeholder="Добавьте комментарий...">
 </form>
 {% endblock %}
