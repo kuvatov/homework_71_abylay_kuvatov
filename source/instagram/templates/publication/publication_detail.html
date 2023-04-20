@@ -18,7 +18,7 @@
             <img src="{{ publication.image.url }}" alt="image" class="card-img-top">
         </a>
         <div class="card-body">
-            {% if publication.likes.all %}
+            {% if request.user in publication.likes.all %}
             <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
             {% else %}
             <form method="post" action="{% url 'like' publication.pk %}" class="card_body_form">
@@ -46,7 +46,7 @@
     <h3 class="pb-3">Комментарии:</h3>
     <div class="publication_comments border border-light p-3">
         {% for comment in publication.comments.all %}
-        <p><b>{{ user.username }}</b> {{ comment.text }}</p>
+        <p><b>{{ comment.user.username }}</b> {{ comment.text }}</p>
         <p class="publication_detail_created_at">{{ comment.created_at }}</p>
         {% empty %}
         <p>Комментарии не добавлены.</p>

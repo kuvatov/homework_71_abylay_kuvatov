@@ -20,7 +20,7 @@
             <img src="{{ publication.image.url }}" alt="image" class="card-img-top">
         </a>
         <div class="card-body">
-            {% if publication.likes.all %}
+            {% if request.user in publication.likes.all %}
             <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
             {% else %}
             <form method="post" action="{% url 'like' publication.pk %}" class="card_body_form">
