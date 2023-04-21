@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "instagram",
     "bootstrap5",
     "rest_framework",
+    "rest_framework.authtoken",
     "api"
 ]
 
@@ -135,3 +136,9 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
