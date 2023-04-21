@@ -35,6 +35,7 @@ Value: Token _token_, где вместо _token_ необходимо вста�
     "username": _username_,
     "password": _password_
 }
+URL: POST http://localhost:8000/api/login/
 
 Ниже указаны методы и пути к API:
 
