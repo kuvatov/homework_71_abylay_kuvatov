@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'media/favicon.ico' %}">
     <title>{% block title %}Instagram{% endblock %}</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
@@ -71,5 +72,6 @@
 </footer>
 
 <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/like.js' %}" type="text/javascript"></script>
 </body>
 </html>

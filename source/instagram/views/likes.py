@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.views import View
 
 from instagram.models import Like, Publication
@@ -17,4 +17,4 @@ class LikeCreateView(LoginRequiredMixin, View):
             like = Like.objects.create(publication=publication, user=request.user)
             publication.likes_count += 1
         publication.save()
-        return redirect(request.META.get('HTTP_REFERER'))
+        return JsonResponse({'likes_count': publication.likes_count})

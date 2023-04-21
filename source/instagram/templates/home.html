@@ -20,20 +20,20 @@
             <img src="{{ publication.image.url }}" alt="image" class="card-img-top">
         </a>
         <div class="card-body">
-            {% if request.user in publication.likes.all %}
-            <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
-            {% else %}
             <form method="post" action="{% url 'like' publication.pk %}" class="card_body_form">
                 {% csrf_token %}
-                <button type="submit" class="form_button">
+                <button type="submit" class="form_button" id="like-unlike-btn">
+                    {% if request.user.id in publication_likes %}
+                    <img src="../../static/media/unlike.jpg" alt="like" class="form_image">
+                    {% else %}
                     <img src="../../static/media/like.jpg" alt="like" class="form_image">
+                    {% endif %}
                 </button>
             </form>
-            {% endif %}
             <a href="#comment-form-{{ publication.pk }}" class="card_body_form">
                 <img src="../../static/media/comment.jpg" alt="comment" class="form_image">
             </a>
-            <p><b>{{ publication.likes_count }} отметок "Нравится"</b></p>
+            <p><b><span id="likes_count" class="likes_count">{{ publication.likes_count }}</span> отметок "Нравится"</b></p>
             <p class="card-text">
                 <b>{{ publication.user.name }}</b> {{ publication.description }}
             </p>

@@ -29,5 +29,7 @@ class PublicationDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        likes = self.object.likes.all()
+        context['publication_likes'] = likes.values_list('user_id', flat=True)
         context['form'] = CommentForm(instance=self.object)
         return context
