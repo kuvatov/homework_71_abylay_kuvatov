@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "users",
     "instagram",
     "bootstrap5",
+    "rest_framework",
     "api"
 ]
 

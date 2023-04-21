@@ -5,5 +5,5 @@ from instagram.models import Publication
 
 
 class PublicationViewSet(viewsets.ModelViewSet):
-    queryset = Publication.objects.all()
+    queryset = Publication.objects.filter(is_deleted=False)
     serializer_class = PublicationSerializer
